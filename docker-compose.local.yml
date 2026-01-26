@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      target: local
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: local

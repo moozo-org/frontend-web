@@ -1,0 +1,7 @@
+services:
+  app:
+    build:
+      target: dev
+    environment:
+      NODE_ENV: development
+    restart: unless-stopped
