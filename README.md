@@ -1,1 +1,10 @@
-# frontend-web
+# Frontend Web
+
+## Technologies
+
+- React
+- TypeScript
+- Vite
+- Prettier
+- Eslint
+- Docker
