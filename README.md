@@ -5,19 +5,19 @@
 ### PROD
 
 ```
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 ### DEV
 
 ```
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+docker compose -f docker-compose.dev.yml up -d --build
 ```
 
 ### LOCAL
 
 ```
-docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
+docker compose -f docker-compose.local.yml up --build
 ```
 
 ## Technologies
