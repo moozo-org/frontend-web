@@ -6,10 +6,15 @@ import Photos from './pages/private/Photos'
 import Program from './pages/private/Program'
 import SeatingChart from './pages/private/SeatingChart'
 import Table from './pages/private/Table'
+import ErrorPage from './pages/public/Error'
 import Home from './pages/public/Home'
 import Verification from './pages/public/Verification'
 import Welcome from './pages/public/Welcome'
-import ProtectedLayout from './routes/ProtectedLayout'
+import { ThemeProvider } from './providers/ThemeProvider'
+import ProtectedLayout from './layouts/ProtectedLayout'
+
+import './index.css'
+import EventLayout from './layouts/EventLayout'
 
 const rootElement = document.getElementById('root')
 
@@ -19,22 +24,26 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Home />} />
+    <ThemeProvider defaultTheme="system" storageKey="theme">
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
 
-        <Route path=":event">
-          <Route index element={<Welcome />} />
-          <Route path="verification" element={<Verification />} />
+          <Route path=":event" element={<EventLayout />}>
+            <Route index element={<Welcome />} />
+            <Route path="verification" element={<Verification />} />
 
-          <Route element={<ProtectedLayout />}>
-            <Route path="photos" element={<Photos />} />
-            <Route path="program" element={<Program />} />
-            <Route path="seating" element={<SeatingChart />} />
-            <Route path="table" element={<Table />} />
+            <Route element={<ProtectedLayout />}>
+              <Route path="photos" element={<Photos />} />
+              <Route path="program" element={<Program />} />
+              <Route path="seating" element={<SeatingChart />} />
+              <Route path="table" element={<Table />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </StrictMode>
 )
