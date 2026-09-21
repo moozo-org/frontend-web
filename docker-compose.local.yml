@@ -2,10 +2,16 @@ services:
   app:
     build:
       target: local
-    volumes:
-      - .:/app
-      - /app/node_modules
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: local
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: rebuild
+          path: package.json
+        - action: rebuild
+          path: package-lock.json
