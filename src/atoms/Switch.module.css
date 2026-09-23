@@ -1,4 +1,4 @@
-.switch-wrapper {
+.wrapper {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -10,8 +10,8 @@
   height: 1.5rem;
   padding: 0;
   border: 1px solid var(--border);
-  border-radius: 999px;
-  background-color: var(--border);
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-field);
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -20,7 +20,7 @@
   background-color: var(--primary);
 }
 
-.switch-thumb {
+.thumb {
   position: absolute;
   top: 2px;
   left: 2px;
@@ -31,7 +31,7 @@
   transition: transform 0.2s;
 }
 
-.switch.on .switch-thumb {
+.switch.on .thumb {
   transform: translateX(1.25rem);
 }
 

@@ -9,17 +9,17 @@ interface SwitchProps {
 
 const Switch = ({ checked, onChange, label, id = 'switch' }: SwitchProps) => {
   return (
-    <div className={styles['switch-wrapper']}>
+    <div className={styles.wrapper}>
       {label && <label htmlFor={id}>{label}</label>}
       <button
         id={id}
         type="button"
         role="switch"
         aria-checked={checked}
-        className={styles['switch'] + (checked ? ' ' + styles['on'] : '')}
+        className={styles.switch + (checked ? ' ' + styles.on : '')}
         onClick={() => onChange(!checked)}
       >
-        <span className={styles['switch-thumb']} />
+        <span className={styles.thumb} />
       </button>
     </div>
   )
