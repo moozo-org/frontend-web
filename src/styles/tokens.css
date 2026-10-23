@@ -1,0 +1,22 @@
+:root {
+  --font-title: 'Sora', sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --fs-xl: 1.75rem;
+  --fs-lg: 1.25rem;
+  --fs-md: 0.9375rem;
+  --fs-sm: 0.75rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+
+  --radius: 12px;
+  --radius-pill: 9999px;
+
+  --control-h: 48px;
+
+  --transition: 150ms ease-out;
+}
