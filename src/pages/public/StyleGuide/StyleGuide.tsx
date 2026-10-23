@@ -11,8 +11,8 @@ import {
   Text,
   TextField,
   Title,
-} from '../../atoms'
-import { useTheme } from '../../hooks/useTheme'
+} from '../../../atoms'
+import { useTheme } from '../../../hooks/useTheme'
 import styles from './StyleGuide.module.css'
 
 const colors = [
