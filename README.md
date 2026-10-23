@@ -2,23 +2,13 @@
 
 ## Start project
 
-### PROD
-
-```
-docker compose -f docker-compose.prod.yml up -d --build
-```
-
-### DEV
-
-```
-docker compose -f docker-compose.dev.yml up -d --build
-```
-
-### LOCAL
-
-```
-docker compose -f docker-compose.local.yml up --build
-```
+| Command                | What it does                                    |
+| ---------------------- | ----------------------------------------------- |
+| `npm run docker:local` | Local with Docker, hot reload on `src/` (:3000) |
+| `npm run docker:stop`  | Stop the local container                        |
+| `npm run docker:dev`   | Dev environment (detached)                      |
+| `npm run docker:prod`  | Prod environment (detached)                     |
+| `npm run dev`          | Without Docker (`npm install` first)            |
 
 ## Technologies
 
