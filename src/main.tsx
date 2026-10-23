@@ -8,6 +8,7 @@ import SeatingChart from './pages/private/SeatingChart'
 import Table from './pages/private/Table'
 import ErrorPage from './pages/public/Error'
 import Home from './pages/public/Home'
+import Register from './pages/public/Register'
 import StyleGuide from './pages/public/StyleGuide'
 import Verification from './pages/public/Verification'
 import Welcome from './pages/public/Welcome'
@@ -30,6 +31,7 @@ createRoot(rootElement).render(
         <Routes>
           <Route index element={<Home />} />
           <Route path="style" element={<StyleGuide />} />
+          <Route path="register" element={<Register />} />
 
           <Route path=":event" element={<EventLayout />}>
             <Route index element={<Welcome />} />
