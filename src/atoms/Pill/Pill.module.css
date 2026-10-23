@@ -1,0 +1,27 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background-color: var(--field);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition);
+
+  &[aria-pressed='true'] {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--on-primary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

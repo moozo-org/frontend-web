@@ -1,0 +1,17 @@
+.link {
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.default {
+  color: var(--primary);
+}
+
+.muted {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}

@@ -1,0 +1,54 @@
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--field);
+  color: transparent;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.invalid {
+  border-color: var(--danger);
+}
+
+.input:checked + .box {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.input:focus-visible + .box {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.input:disabled ~ * {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
+  color: var(--danger);
+}

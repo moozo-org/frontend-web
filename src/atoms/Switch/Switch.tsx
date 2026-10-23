@@ -1,22 +1,28 @@
+import { useId } from 'react'
 import styles from './Switch.module.css'
 
 interface SwitchProps {
   checked: boolean
   onChange: (checked: boolean) => void
   label?: string
+  disabled?: boolean
   id?: string
 }
 
-const Switch = ({ checked, onChange, label, id = 'switch' }: SwitchProps) => {
+const Switch = ({ checked, onChange, label, disabled, id }: SwitchProps) => {
+  const autoId = useId()
+  const switchId = id ?? autoId
+
   return (
     <div className={styles.wrapper}>
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && <label htmlFor={switchId}>{label}</label>}
       <button
-        id={id}
+        id={switchId}
         type="button"
         role="switch"
         aria-checked={checked}
-        className={styles.switch + (checked ? ' ' + styles.on : '')}
+        disabled={disabled}
+        className={styles.switch}
         onClick={() => onChange(!checked)}
       >
         <span className={styles.thumb} />
