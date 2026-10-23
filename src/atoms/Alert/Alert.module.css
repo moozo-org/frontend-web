@@ -1,0 +1,18 @@
+.alert {
+  --tone: var(--primary);
+
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--tone) 35%, transparent);
+  border-radius: var(--radius);
+  background-color: color-mix(in srgb, var(--tone) 12%, transparent);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+
+.error {
+  --tone: var(--danger);
+}
+
+.success {
+  --tone: var(--success);
+}

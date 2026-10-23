@@ -1,0 +1,20 @@
+.title {
+  font-family: var(--font-title);
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.level1 {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+}
+
+.level2 {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+}
+
+.level3 {
+  font-size: var(--fs-md);
+  font-weight: 600;
+}
