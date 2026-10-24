@@ -1,5 +1,9 @@
+import { useTranslation } from 'react-i18next'
+
 const SeatingChart = () => {
-  return <div>SeatingChart</div>
+  const { t } = useTranslation()
+
+  return <div>{t('pages.seating')}</div>
 }
 
 export default SeatingChart

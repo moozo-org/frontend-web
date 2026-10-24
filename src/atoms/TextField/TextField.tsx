@@ -1,4 +1,5 @@
 import { useId, useState, type InputHTMLAttributes, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { EyeIcon, EyeOffIcon } from '../icons'
 import styles from './TextField.module.css'
 
@@ -22,6 +23,7 @@ const TextField = ({
   const inputId = id ?? autoId
   const messageId = `${inputId}-message`
   const message = error ?? hint
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const isPassword = type === 'password'
 
@@ -46,7 +48,7 @@ const TextField = ({
             type="button"
             className={styles.toggle}
             onClick={() => setVisible(!visible)}
-            aria-label={visible ? 'Hide password' : 'Show password'}
+            aria-label={t(visible ? 'common.hidePassword' : 'common.showPassword')}
           >
             {visible ? <EyeOffIcon /> : <EyeIcon />}
           </button>

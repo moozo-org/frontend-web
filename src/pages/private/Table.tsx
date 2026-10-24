@@ -1,5 +1,9 @@
+import { useTranslation } from 'react-i18next'
+
 const Table = () => {
-  return <div>Table</div>
+  const { t } = useTranslation()
+
+  return <div>{t('pages.table')}</div>
 }
 
 export default Table
