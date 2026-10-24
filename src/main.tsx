@@ -14,6 +14,7 @@ import Welcome from './pages/public/Welcome'
 import { ThemeProvider } from './providers/ThemeProvider'
 import ProtectedLayout from './layouts/ProtectedLayout'
 
+import './i18n'
 import './index.css'
 import EventLayout from './layouts/EventLayout'
 
