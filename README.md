@@ -28,3 +28,5 @@ docker compose -f docker-compose.local.yml up --build
 - Prettier
 - Eslint
 - Docker
+
+small test
