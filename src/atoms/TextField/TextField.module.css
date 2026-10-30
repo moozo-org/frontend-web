@@ -44,7 +44,6 @@
   background: none;
   outline: none;
 
-  /* beats the global :focus-visible outline, the ring is drawn by .control */
   &:focus-visible {
     outline: none;
   }
