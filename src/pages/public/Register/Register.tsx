@@ -54,7 +54,7 @@ const Register = () => {
     setLoading(true)
     try {
       await register(data)
-      navigate('/login', { replace: true })
+      navigate('/verify-account', { replace: true })
     } catch (err) {
       setFormError(
         getErrorStatus(err) === 409
@@ -112,6 +112,7 @@ const Register = () => {
             onChange={update('password')}
           />
 
+          {/* TODO: let the user pick organizer or provider, providers need admin validation (see specs) */}
           <Checkbox
             // TODO: add links to terms and privacy policy
             label="I accept the terms of use and the privacy policy"

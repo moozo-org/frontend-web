@@ -1,42 +1,21 @@
 import { Route, Routes } from 'react-router'
+import { ErrorPage } from '../pages'
 
-import EventLayout from '../layouts/EventLayout'
-import ProtectedLayout from '../layouts/ProtectedLayout'
-
-import {
-  ErrorPage,
-  Home,
-  Photos,
-  Program,
-  SeatingChart,
-  StyleGuide,
-  Table,
-  Verification,
-  Welcome,
-  Register,
-  Login,
-} from '../pages'
+import { accountRoutes } from './account'
+import { adminRoutes } from './admin'
+import { guestRoutes } from './guest'
+import { organizerRoutes } from './organizer'
+import { providerRoutes } from './provider'
+import { publicRoutes } from './public'
 
 const AppRoutes = () => (
   <Routes>
-    {/* Public */}
-    <Route index element={<Home />} />
-    <Route path="style" element={<StyleGuide />} />
-    <Route path="register" element={<Register />} />
-    <Route path="login" element={<Login />} />
-
-    <Route path="event/:event" element={<EventLayout />}>
-      <Route index element={<Welcome />} />
-      <Route path="verification" element={<Verification />} />
-
-      {/* Private */}
-      <Route element={<ProtectedLayout />}>
-        <Route path="photos" element={<Photos />} />
-        <Route path="program" element={<Program />} />
-        <Route path="seating" element={<SeatingChart />} />
-        <Route path="table" element={<Table />} />
-      </Route>
-    </Route>
+    {publicRoutes}
+    {guestRoutes}
+    {accountRoutes}
+    {providerRoutes}
+    {organizerRoutes}
+    {adminRoutes}
 
     <Route path="*" element={<ErrorPage />} />
   </Routes>
