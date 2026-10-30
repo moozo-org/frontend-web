@@ -38,8 +38,8 @@ const Register = () => {
   const [loading, setLoading] = useState(false)
 
   const update = (field: Field) => (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [field]: e.target.value })
-    setErrors({ ...errors, [field]: undefined })
+    setForm((prev) => ({ ...prev, [field]: e.target.value }))
+    setErrors((prev) => ({ ...prev, [field]: undefined }))
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -120,12 +120,13 @@ const Register = () => {
           />
 
           <Checkbox
+            // TODO: add links to terms and privacy policy
             label="I accept the terms of use and the privacy policy"
             checked={terms}
             error={errors.terms}
             onChange={(e) => {
               setTerms(e.target.checked)
-              setErrors({ ...errors, terms: undefined })
+              setErrors((prev) => ({ ...prev, terms: undefined }))
             }}
           />
 
