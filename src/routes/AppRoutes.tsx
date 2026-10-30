@@ -21,7 +21,7 @@ const AppRoutes = () => (
     <Route index element={<Home />} />
     <Route path="style" element={<StyleGuide />} />
 
-    <Route path=":event" element={<EventLayout />}>
+    <Route path="/event/:event" element={<EventLayout />}>
       <Route index element={<Welcome />} />
       <Route path="verification" element={<Verification />} />
 
