@@ -1,12 +1,9 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate } from 'react-router'
-import { isAxiosError } from 'axios'
-import { Alert, Button, Card, Checkbox, Link, Text, TextField, Title } from '../../atoms'
-import register from '../../services/auth/register'
+import { Alert, Button, Card, Checkbox, Link, Text, TextField, Title } from '../../../atoms'
+import register from '../../../services/auth/register'
+import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
 import styles from './Register.module.css'
-
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const PHONE = /^\+?[0-9\s.-]{8,}$/
 
 const empty = { firstName: '', lastName: '', identifier: '', password: '' }
 
@@ -19,9 +16,7 @@ const validate = (form: typeof empty, terms: boolean) => {
   if (!form.firstName) errors.firstName = 'Enter your first name'
   if (!form.lastName) errors.lastName = 'Enter your last name'
 
-  if (!form.identifier) errors.identifier = 'Enter your email or phone number'
-  else if (!EMAIL.test(form.identifier) && !PHONE.test(form.identifier))
-    errors.identifier = 'Enter a valid email or phone number'
+  errors.identifier = validateIdentifier(form.identifier)
 
   if (form.password.length < 8) errors.password = 'At least 8 characters'
   if (!terms) errors.terms = 'You must accept the terms'
@@ -50,7 +45,7 @@ const Register = () => {
       ...form,
       firstName: form.firstName.trim(),
       lastName: form.lastName.trim(),
-      identifier: form.identifier.trim(),
+      identifier: normalizeIdentifier(form.identifier),
     }
     const fieldErrors = validate(data, terms)
     setErrors(fieldErrors)
@@ -61,9 +56,8 @@ const Register = () => {
       await register(data)
       navigate('/login', { replace: true })
     } catch (err) {
-      const status = isAxiosError(err) ? err.response?.status : undefined
       setFormError(
-        status === 409
+        getErrorStatus(err) === 409
           ? 'An account already exists with this email or phone.'
           : 'Something went wrong. Try again.'
       )
@@ -103,7 +97,6 @@ const Register = () => {
           <TextField
             label="Email or phone"
             autoComplete="username"
-            placeholder="you@mail.com"
             value={form.identifier}
             error={errors.identifier}
             onChange={update('identifier')}

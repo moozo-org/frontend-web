@@ -1,4 +1,5 @@
 import axiosInstance from '../axiosInstance'
+import { setStored } from '../../utils'
 
 interface RegisterPayload {
   firstName: string
@@ -14,7 +15,7 @@ interface RegisterResponse {
 async function register(payload: RegisterPayload) {
   const { data } = await axiosInstance.post<RegisterResponse>('/auth/register', payload)
 
-  localStorage.setItem('token', data.token)
+  setStored('token', data.token)
 
   return data
 }
