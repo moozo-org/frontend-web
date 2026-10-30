@@ -1,12 +1,17 @@
 import { useState, type FormEvent } from 'react'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { isAxiosError } from 'axios'
 import { Alert, Button, Card, Link, Text, TextField, Title } from '../../atoms'
 import login from '../../services/auth/login'
 import styles from './Login.module.css'
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const PHONE = /^\+?[0-9\s.-]{8,}$/
+const PHONE = /^\+?\d{8,15}$/
+
+const normalize = (value: string) => {
+  const trimmed = value.trim()
+  return EMAIL.test(trimmed) ? trimmed : trimmed.replace(/[\s.-]/g, '')
+}
 
 interface Errors {
   identifier?: string
@@ -27,6 +32,7 @@ const validate = (identifier: string, password: string) => {
 
 const Login = () => {
   const navigate = useNavigate()
+  const { state } = useLocation()
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState<Errors>({})
@@ -37,14 +43,15 @@ const Login = () => {
     e.preventDefault()
     setFormError('')
 
-    const fieldErrors = validate(identifier.trim(), password)
+    const id = normalize(identifier)
+    const fieldErrors = validate(id, password)
     setErrors(fieldErrors)
     if (Object.keys(fieldErrors).length) return
 
     setLoading(true)
     try {
-      await login(identifier.trim(), password)
-      navigate('/', { replace: true })
+      await login(id, password)
+      navigate(state?.from ?? '/', { replace: true })
     } catch (err) {
       const status = isAxiosError(err) ? err.response?.status : undefined
       setFormError(
@@ -74,7 +81,7 @@ const Login = () => {
             error={errors.identifier}
             onChange={(e) => {
               setIdentifier(e.target.value)
-              setErrors({ ...errors, identifier: undefined })
+              setErrors((prev) => ({ ...prev, identifier: undefined }))
             }}
           />
 
@@ -87,12 +94,13 @@ const Login = () => {
               error={errors.password}
               onChange={(e) => {
                 setPassword(e.target.value)
-                setErrors({ ...errors, password: undefined })
+                setErrors((prev) => ({ ...prev, password: undefined }))
               }}
             />
-            <Link to="/forgot-password" variant="muted">
+            {/* TODO: add forgot password link */}
+            {/* <Link to="/forgot-password" variant="muted">
               Forgot password?
-            </Link>
+            </Link> */}
           </div>
 
           <Button type="submit" fullWidth loading={loading}>
