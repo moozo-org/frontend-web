@@ -2,7 +2,8 @@ import { useState, type FormEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { Alert, Button, Card, Link, Text, TextField, Title } from '../../../atoms'
 import login from '../../../services/auth/login'
-import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
+import getMe from '../../../services/users/me'
+import { getErrorStatus, homeFor, normalizeIdentifier, validateIdentifier } from '../../../utils'
 import styles from './Login.module.css'
 
 interface Errors {
@@ -41,7 +42,8 @@ const Login = () => {
     setLoading(true)
     try {
       await login(id, password)
-      navigate(state?.from ?? '/', { replace: true })
+      const { role } = await getMe()
+      navigate(state?.from ?? homeFor(role), { replace: true })
     } catch (err) {
       setFormError(
         getErrorStatus(err) === 401
