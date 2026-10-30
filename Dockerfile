@@ -1,5 +1,6 @@
 FROM node:20-alpine AS base
 WORKDIR /app
+RUN npm install -g serve@14
 COPY package*.json ./
 RUN npm install
 COPY . .
@@ -11,16 +12,12 @@ CMD ["npm", "run", "dev"]
 
 FROM base AS dev
 ENV NODE_ENV=development
+RUN npm run build -- --mode development
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+CMD ["serve", "-s", "dist", "-l", "3000"]
 
-FROM base AS build
+FROM base AS prod
 ENV NODE_ENV=production
 RUN npm run build
-
-FROM node:20-alpine AS prod
-WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=build /app ./
 EXPOSE 3000
-CMD ["npm", "run", "start"]
+CMD ["serve", "-s", "dist", "-l", "3000"]
