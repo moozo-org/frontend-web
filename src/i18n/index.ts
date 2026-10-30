@@ -16,7 +16,9 @@ i18n.use(initReactI18next).init({
     fr: { translation: fr },
     en: { translation: en },
   },
-  lng: localStorage.getItem('lang') ?? navigator.language.slice(0, 2),
+  lng:
+    localStorage.getItem('lang') ??
+    navigator.languages.map((l) => l.slice(0, 2)).find((l) => (languages as readonly string[]).includes(l)),
   fallbackLng: 'fr',
   supportedLngs: languages,
   interpolation: { escapeValue: false },

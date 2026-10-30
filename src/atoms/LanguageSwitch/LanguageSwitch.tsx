@@ -7,7 +7,7 @@ const LanguageSwitch = () => {
   const { t, i18n } = useTranslation()
 
   return (
-    <div className={styles.group}>
+    <div aria-label={t('language.label')} className={styles.group}>
       {languages.map((lang) => (
         <Pill
           key={lang}
