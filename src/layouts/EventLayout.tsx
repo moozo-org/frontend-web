@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useParams } from 'react-router'
 
-import ErrorPage from '../pages/public/Error'
+import { ErrorPage } from '../pages'
 
 const EventLayout = () => {
   const { event } = useParams()
@@ -13,9 +13,10 @@ const EventLayout = () => {
     const checkEvent = async () => {
       try {
         // TODO: replace with real API and axios
-        const res = await fetch(`https://api.moozo.app/events/${event}`)
-        if (!res.ok) throw new Error('Event not found')
-        if (!cancelled) setStatus(res.ok ? 'valid' : 'invalid')
+        // const res = await fetch(`https://api.moozo.app/events/${event}`)
+        // if (!res.ok) throw new Error('Event not found')
+        // if (!cancelled) setStatus(res.ok ? 'valid' : 'invalid')
+        setStatus('valid')
       } catch {
         if (!cancelled) setStatus('invalid')
       }
