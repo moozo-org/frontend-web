@@ -1,10 +1,11 @@
-import { Navigate, Outlet } from 'react-router'
+import { Navigate, Outlet, useParams } from 'react-router'
 
 const ProtectedLayout = () => {
+  const { event } = useParams()
   const token = localStorage.getItem('token')
 
   if (!token) {
-    return <Navigate to="/welcome" replace />
+    return <Navigate to={`/event/${event}`} replace />
   }
   return <Outlet />
 }

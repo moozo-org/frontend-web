@@ -1,22 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Route, Routes } from 'react-router'
+import { BrowserRouter } from 'react-router'
 
-import Photos from './pages/private/Photos'
-import Program from './pages/private/Program'
-import SeatingChart from './pages/private/SeatingChart'
-import Table from './pages/private/Table'
-import ErrorPage from './pages/public/Error'
-import Home from './pages/public/Home'
-import Register from './pages/public/Register'
-import StyleGuide from './pages/public/StyleGuide'
-import Verification from './pages/public/Verification'
-import Welcome from './pages/public/Welcome'
 import { ThemeProvider } from './providers/ThemeProvider'
-import ProtectedLayout from './layouts/ProtectedLayout'
+import AppRoutes from './routes/AppRoutes'
 
 import './index.css'
-import EventLayout from './layouts/EventLayout'
 
 const rootElement = document.getElementById('root')
 
@@ -28,25 +17,7 @@ createRoot(rootElement).render(
   <StrictMode>
     <ThemeProvider defaultTheme="system" storageKey="theme">
       <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="style" element={<StyleGuide />} />
-          <Route path="register" element={<Register />} />
-
-          <Route path=":event" element={<EventLayout />}>
-            <Route index element={<Welcome />} />
-            <Route path="verification" element={<Verification />} />
-
-            <Route element={<ProtectedLayout />}>
-              <Route path="photos" element={<Photos />} />
-              <Route path="program" element={<Program />} />
-              <Route path="seating" element={<SeatingChart />} />
-              <Route path="table" element={<Table />} />
-            </Route>
-          </Route>
-
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
+        <AppRoutes />
       </BrowserRouter>
     </ThemeProvider>
   </StrictMode>
