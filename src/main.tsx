@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router'
 import { ThemeProvider } from './providers/ThemeProvider'
 import AppRoutes from './routes/AppRoutes'
 
+import './i18n'
 import './index.css'
 
 const rootElement = document.getElementById('root')

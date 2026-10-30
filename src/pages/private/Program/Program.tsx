@@ -1,5 +1,9 @@
+import { useTranslation } from 'react-i18next'
+
 const Program = () => {
-  return <div>Program</div>
+  const { t } = useTranslation()
+
+  return <div>{t('pages.program')}</div>
 }
 
 export default Program
