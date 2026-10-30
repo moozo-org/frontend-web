@@ -3,16 +3,17 @@ import { Route, Routes } from 'react-router'
 import EventLayout from '../layouts/EventLayout'
 import ProtectedLayout from '../layouts/ProtectedLayout'
 
-import ErrorPage from '../pages/public/Error/Error'
-import Home from '../pages/public/Home/Home'
-import StyleGuide from '../pages/public/StyleGuide/StyleGuide'
-import Verification from '../pages/public/Verification/Verification'
-import Welcome from '../pages/public/Welcome/Welcome'
-
-import Photos from '../pages/private/Photos/Photos'
-import Program from '../pages/private/Program/Program'
-import SeatingChart from '../pages/private/SeatingChart/SeatingChart'
-import Table from '../pages/private/Table/Table'
+import {
+  ErrorPage,
+  Home,
+  Photos,
+  Program,
+  SeatingChart,
+  StyleGuide,
+  Table,
+  Verification,
+  Welcome,
+} from '../pages'
 
 const AppRoutes = () => (
   <Routes>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useParams } from 'react-router'
 
-import ErrorPage from '../pages/public/Error/Error'
+import { ErrorPage } from '../pages'
 
 const EventLayout = () => {
   const { event } = useParams()
