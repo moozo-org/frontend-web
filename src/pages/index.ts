@@ -3,6 +3,8 @@ export { default as Home } from './public/Home/Home'
 export { default as StyleGuide } from './public/StyleGuide/StyleGuide'
 export { default as Verification } from './public/Verification/Verification'
 export { default as Welcome } from './public/Welcome/Welcome'
+export { default as Register } from './public/Register/Register'
+export { default as Login } from './public/Login/Login'
 
 export { default as Photos } from './private/Photos/Photos'
 export { default as Program } from './private/Program/Program'

@@ -13,6 +13,8 @@ import {
   Table,
   Verification,
   Welcome,
+  Register,
+  Login,
 } from '../pages'
 
 const AppRoutes = () => (
@@ -20,8 +22,10 @@ const AppRoutes = () => (
     {/* Public */}
     <Route index element={<Home />} />
     <Route path="style" element={<StyleGuide />} />
+    <Route path="register" element={<Register />} />
+    <Route path="login" element={<Login />} />
 
-    <Route path="/event/:event" element={<EventLayout />}>
+    <Route path="event/:event" element={<EventLayout />}>
       <Route index element={<Welcome />} />
       <Route path="verification" element={<Verification />} />
 

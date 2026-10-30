@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getStored } from '../utils'
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -10,7 +11,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token')
+    const token = getStored('token')
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`

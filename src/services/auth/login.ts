@@ -1,4 +1,5 @@
 import axiosInstance from '../axiosInstance'
+import { setStored } from '../../utils'
 
 interface LoginResponse {
   token: string
@@ -7,7 +8,7 @@ interface LoginResponse {
 async function login(identifier: string, password: string) {
   const { data } = await axiosInstance.post<LoginResponse>('/auth/login', { identifier, password })
 
-  localStorage.setItem('token', data.token)
+  setStored('token', data.token)
 
   return data
 }

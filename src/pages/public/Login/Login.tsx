@@ -1,17 +1,9 @@
 import { useState, type FormEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { isAxiosError } from 'axios'
-import { Alert, Button, Card, Link, Text, TextField, Title } from '../../atoms'
-import login from '../../services/auth/login'
+import { Alert, Button, Card, Link, Text, TextField, Title } from '../../../atoms'
+import login from '../../../services/auth/login'
+import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
 import styles from './Login.module.css'
-
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const PHONE = /^\+?\d{8,15}$/
-
-const normalize = (value: string) => {
-  const trimmed = value.trim()
-  return EMAIL.test(trimmed) ? trimmed : trimmed.replace(/[\s.-]/g, '')
-}
 
 interface Errors {
   identifier?: string
@@ -21,9 +13,7 @@ interface Errors {
 const validate = (identifier: string, password: string) => {
   const errors: Errors = {}
 
-  if (!identifier) errors.identifier = 'Enter your email or phone number'
-  else if (!EMAIL.test(identifier) && !PHONE.test(identifier))
-    errors.identifier = 'Enter a valid email or phone number'
+  errors.identifier = validateIdentifier(identifier)
 
   if (!password) errors.password = 'Enter your password'
 
@@ -43,7 +33,7 @@ const Login = () => {
     e.preventDefault()
     setFormError('')
 
-    const id = normalize(identifier)
+    const id = normalizeIdentifier(identifier)
     const fieldErrors = validate(id, password)
     setErrors(fieldErrors)
     if (Object.keys(fieldErrors).length) return
@@ -53,9 +43,10 @@ const Login = () => {
       await login(id, password)
       navigate(state?.from ?? '/', { replace: true })
     } catch (err) {
-      const status = isAxiosError(err) ? err.response?.status : undefined
       setFormError(
-        status === 401 ? 'Wrong email, phone or password.' : 'Something went wrong. Try again.'
+        getErrorStatus(err) === 401
+          ? 'Wrong email, phone or password.'
+          : 'Something went wrong. Try again.'
       )
     } finally {
       setLoading(false)
@@ -76,7 +67,6 @@ const Login = () => {
           <TextField
             label="Email or phone"
             autoComplete="username"
-            placeholder="you@mail.com"
             value={identifier}
             error={errors.identifier}
             onChange={(e) => {
