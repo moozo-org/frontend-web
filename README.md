@@ -8,7 +8,7 @@
 | `npm run docker:stop`  | Stop the local container                        |
 | `npm run docker:dev`   | Dev environment (detached)                      |
 | `npm run docker:prod`  | Prod environment (detached)                     |
-| `npm run dev`          | Without Docker (`npm install` first)            |
+| `npm run dev`          | Without Docker (`npm install` first)           (:3000) |
 
 ## Technologies
 
