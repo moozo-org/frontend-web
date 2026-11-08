@@ -1,5 +1,5 @@
 import { Route } from 'react-router'
-import RequireRole from '../layouts/RequireRole'
+import RequireRole from './guards/RequireRole'
 import { Placeholder } from '../pages'
 
 export const adminRoutes = (

@@ -13,3 +13,11 @@ export const setStored = (key: string, value: string) => {
     // ignore: the value just won't persist
   }
 }
+
+export const removeStored = (key: string) => {
+  try {
+    localStorage.removeItem(key)
+  } catch {
+    // ignore: nothing to remove
+  }
+}
