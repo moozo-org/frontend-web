@@ -1,11 +1,11 @@
 import { useState, type FormEvent } from 'react'
-import { useLocation, useNavigate } from 'react-router'
+import { Trans, useTranslation } from 'react-i18next'
 import { Alert, Button, Card, Link, Text, TextField, Title } from '../../../atoms'
-import login from '../../../services/auth/login'
-import getMe from '../../../services/users/me'
-import { getErrorStatus, homeFor, normalizeIdentifier, validateIdentifier } from '../../../utils'
+import { useAuth } from '../../../hooks/useAuth'
+import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
 import styles from './Login.module.css'
 
+// Values are i18n keys, translated when rendered
 interface Errors {
   identifier?: string
   password?: string
@@ -16,19 +16,21 @@ const validate = (identifier: string, password: string) => {
 
   errors.identifier = validateIdentifier(identifier)
 
-  if (!password) errors.password = 'Enter your password'
+  if (!password) errors.password = 'auth.errors.passwordRequired'
 
   return errors
 }
 
 const Login = () => {
-  const navigate = useNavigate()
-  const { state } = useLocation()
+  const { t } = useTranslation()
+  const { login } = useAuth()
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState<Errors>({})
   const [formError, setFormError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const msg = (key?: string) => (key ? t(key) : undefined)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -41,14 +43,18 @@ const Login = () => {
 
     setLoading(true)
     try {
+      // On success the route guard redirects, see RequireAnonymous
       await login(id, password)
-      const { role } = await getMe()
-      navigate(state?.from ?? homeFor(role), { replace: true })
     } catch (err) {
+      const status = getErrorStatus(err)
+
+      // TODO: the API sends 403 for both pending and banned accounts, split them once it says which
       setFormError(
-        getErrorStatus(err) === 401
-          ? 'Wrong email, phone or password.'
-          : 'Something went wrong. Try again.'
+        status === 401
+          ? 'auth.errors.wrongCredentials'
+          : status === 403
+            ? 'auth.errors.inactiveAccount'
+            : 'auth.errors.generic'
       )
     } finally {
       setLoading(false)
@@ -59,18 +65,18 @@ const Login = () => {
     <main className={styles.page}>
       <Card>
         <div className={styles.header}>
-          <Title>Log in</Title>
-          <Text variant="muted">Welcome back to Moozo.</Text>
+          <Title>{t('auth.login.title')}</Title>
+          <Text variant="muted">{t('auth.login.subtitle')}</Text>
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          {formError && <Alert variant="error">{formError}</Alert>}
+          {formError && <Alert variant="error">{t(formError)}</Alert>}
 
           <TextField
-            label="Email or phone"
+            label={t('auth.login.identifier')}
             autoComplete="username"
             value={identifier}
-            error={errors.identifier}
+            error={msg(errors.identifier)}
             onChange={(e) => {
               setIdentifier(e.target.value)
               setErrors((prev) => ({ ...prev, identifier: undefined }))
@@ -79,11 +85,11 @@ const Login = () => {
 
           <div className={styles.password}>
             <TextField
-              label="Password"
+              label={t('auth.login.password')}
               type="password"
               autoComplete="current-password"
               value={password}
-              error={errors.password}
+              error={msg(errors.password)}
               onChange={(e) => {
                 setPassword(e.target.value)
                 setErrors((prev) => ({ ...prev, password: undefined }))
@@ -96,12 +102,12 @@ const Login = () => {
           </div>
 
           <Button type="submit" fullWidth loading={loading}>
-            Log in
+            {t('auth.login.submit')}
           </Button>
         </form>
 
         <Text variant="small">
-          No account yet? <Link to="/register">Create one</Link>
+          <Trans i18nKey="auth.login.noAccount" components={{ link: <Link to="/register" /> }} />
         </Text>
       </Card>
     </main>
