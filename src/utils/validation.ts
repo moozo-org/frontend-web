@@ -6,8 +6,8 @@ export const normalizeIdentifier = (value: string) => {
   return EMAIL.test(trimmed) ? trimmed : trimmed.replace(/[\s.-]/g, '')
 }
 
+// Returns an i18n key, the page translates it
 export const validateIdentifier = (identifier: string) => {
-  if (!identifier) return 'Enter your email or phone number'
-  if (!EMAIL.test(identifier) && !PHONE.test(identifier))
-    return 'Enter a valid email or phone number'
+  if (!identifier) return 'auth.errors.identifierRequired'
+  if (!EMAIL.test(identifier) && !PHONE.test(identifier)) return 'auth.errors.identifierInvalid'
 }
