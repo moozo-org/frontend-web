@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router'
 import { Alert, Button, Card, Checkbox, Link, Text, TextField, Title } from '../../../atoms'
 import register from '../../../services/auth/register'
 import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
-import styles from './Register.module.css'
+import { RoleTabs } from '../../../molecules'
+import styles from '../../FormPage.module.css'
 
 const empty = { firstName: '', lastName: '', identifier: '', password: '' }
 
@@ -59,7 +60,7 @@ const Register = () => {
     setLoading(true)
     try {
       await register(data)
-      navigate('/verify-account', { replace: true })
+      navigate('/verify-account', { replace: true, state: { identifier: data.identifier } })
     } catch (err) {
       setFormError(
         getErrorStatus(err) === 409 ? 'auth.errors.accountExists' : 'auth.errors.generic'
@@ -72,6 +73,7 @@ const Register = () => {
   return (
     <main className={styles.page}>
       <Card>
+        <RoleTabs />
         <div className={styles.header}>
           <Title>{t('auth.register.title')}</Title>
           <Text variant="muted">{t('auth.register.subtitle')}</Text>
@@ -133,12 +135,6 @@ const Register = () => {
 
         <Text variant="small">
           <Trans i18nKey="auth.register.haveAccount" components={{ link: <Link to="/login" /> }} />
-        </Text>
-        <Text variant="small">
-          <Trans
-            i18nKey="auth.register.provider"
-            components={{ link: <Link to="/register/provider" /> }}
-          />
         </Text>
       </Card>
     </main>

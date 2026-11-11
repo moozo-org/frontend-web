@@ -1,0 +1,28 @@
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border-radius: var(--radius-pill);
+  background-color: var(--field);
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+
+  &[aria-current='page'] {
+    background-color: var(--primary);
+    color: var(--on-primary);
+  }
+}

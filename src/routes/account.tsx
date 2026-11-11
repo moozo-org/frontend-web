@@ -1,11 +1,12 @@
 import { Route } from 'react-router'
 import RequireRole from './guards/RequireRole'
-import { Placeholder } from '../pages'
+import { ChangePassword, Placeholder, Profile } from '../pages'
 
 export const accountRoutes = (
   <Route element={<RequireRole />}>
     <Route path="profile">
-      <Route index element={<Placeholder title="Profile" />} />
+      <Route index element={<Profile />} />
+      <Route path="password" element={<ChangePassword />} />
       <Route path="payment-methods" element={<Placeholder title="Payment methods" />} />
     </Route>
 
