@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
-const Error = () => {
+const ErrorScreen = () => {
   const { t } = useTranslation()
 
   return <div>{t('pages.error')}</div>
 }
 
-export default Error
+export default ErrorScreen

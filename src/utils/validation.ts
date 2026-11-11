@@ -1,4 +1,4 @@
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const EMAIL = /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/
 const PHONE = /^\+?\d{8,15}$/
 
 export const normalizeIdentifier = (value: string) => {

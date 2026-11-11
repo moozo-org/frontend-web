@@ -21,7 +21,7 @@ const EventLayout = () => {
         if (!cancelled) setStatus('invalid')
       }
     }
-    checkEvent()
+    void checkEvent()
     return () => {
       cancelled = true
     }
