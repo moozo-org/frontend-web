@@ -1,6 +1,15 @@
 import { Route } from 'react-router'
 import RequireAnonymous from './guards/RequireAnonymous'
-import { Home, Login, Placeholder, Register, StyleGuide } from '../pages'
+import {
+  ForgotPassword,
+  Home,
+  Login,
+  Register,
+  RegisterProvider,
+  ResetPassword,
+  StyleGuide,
+  VerifyAccount,
+} from '../pages'
 
 export const publicRoutes = (
   <>
@@ -11,13 +20,12 @@ export const publicRoutes = (
       <Route path="login" element={<Login />} />
       <Route path="register">
         <Route index element={<Register />} />
-        {/* Spec 01: separate page, reached from a "Become a provider" link, with documents */}
-        <Route path="provider" element={<Placeholder title="Become a provider" />} />
+        <Route path="provider" element={<RegisterProvider />} />
       </Route>
     </Route>
-    <Route path="verify-account" element={<Placeholder title="Verify your account" />} />
+    <Route path="verify-account" element={<VerifyAccount />} />
 
-    <Route path="forgot-password" element={<Placeholder title="Forgot password" />} />
-    <Route path="reset-password" element={<Placeholder title="Reset password" />} />
+    <Route path="forgot-password" element={<ForgotPassword />} />
+    <Route path="reset-password" element={<ResetPassword />} />
   </>
 )

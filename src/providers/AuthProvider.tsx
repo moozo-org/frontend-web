@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AuthContext, type AuthStatus } from '../context/AuthContext'
 import loginRequest from '../services/auth/login'
+import verifyRequest from '../services/auth/verify'
 import getMe from '../services/users/me'
 import { AUTH_EXPIRED, getErrorStatus, getStored, removeStored, type Role } from '../utils'
 
@@ -59,6 +60,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return data.role
   }
 
+  const verify = async (identifier: string, code: string) => {
+    const data = await verifyRequest(identifier, code)
+
+    setRole(data.role)
+    setStatus('authenticated')
+
+    return data.role
+  }
+
   const logout = () => {
     removeStored('token')
     setRole(null)
@@ -66,6 +76,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ status, role, login, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ status, role, login, verify, logout }}>
+      {children}
+    </AuthContext.Provider>
   )
 }
