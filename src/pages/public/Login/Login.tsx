@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router'
 import { Alert, Button, Card, Link, Text, TextField, Title } from '../../../atoms'
 import { useAuth } from '../../../hooks/useAuth'
 import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
@@ -23,6 +24,7 @@ const validate = (identifier: string, password: string) => {
 
 const Login = () => {
   const { t } = useTranslation()
+  const { state } = useLocation()
   const { login } = useAuth()
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
@@ -70,6 +72,7 @@ const Login = () => {
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate>
+          {state?.passwordReset && <Alert variant="success">{t('auth.login.passwordReset')}</Alert>}
           {formError && <Alert variant="error">{t(formError)}</Alert>}
 
           <TextField
@@ -95,10 +98,9 @@ const Login = () => {
                 setErrors((prev) => ({ ...prev, password: undefined }))
               }}
             />
-            {/* TODO: add forgot password link */}
-            {/* <Link to="/forgot-password" variant="muted">
-              Forgot password?
-            </Link> */}
+            <Link to="/forgot-password" variant="muted">
+              {t('auth.login.forgot')}
+            </Link>
           </div>
 
           <Button type="submit" fullWidth loading={loading}>
