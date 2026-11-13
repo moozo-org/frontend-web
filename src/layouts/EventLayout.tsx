@@ -4,7 +4,7 @@ import { Outlet, useParams } from 'react-router'
 import { ErrorPage } from '../pages'
 
 const EventLayout = () => {
-  const { event } = useParams()
+  const { eventId } = useParams()
   const [status, setStatus] = useState<'loading' | 'valid' | 'invalid'>('loading')
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const EventLayout = () => {
     const checkEvent = async () => {
       try {
         // TODO: replace with real API and axios
-        // const res = await fetch(`https://api.moozo.app/events/${event}`)
+        // const res = await fetch(`https://api.moozo.app/events/${eventId}`)
         // if (!res.ok) throw new Error('Event not found')
         // if (!cancelled) setStatus(res.ok ? 'valid' : 'invalid')
         setStatus('valid')
@@ -25,12 +25,12 @@ const EventLayout = () => {
     return () => {
       cancelled = true
     }
-  }, [event])
+  }, [eventId])
 
   if (status === 'loading') return null
   if (status === 'invalid') return <ErrorPage />
 
-  return <Outlet context={{ event }} />
+  return <Outlet context={{ eventId }} />
 }
 
 export default EventLayout

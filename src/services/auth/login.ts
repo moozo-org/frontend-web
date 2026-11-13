@@ -1,8 +1,9 @@
 import axiosInstance from '../axiosInstance'
-import { setStored } from '../../utils'
+import { setStored, type Role } from '../../utils'
 
 interface LoginResponse {
   token: string
+  role: Role
 }
 
 async function login(identifier: string, password: string) {

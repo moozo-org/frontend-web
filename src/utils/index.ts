@@ -1,3 +1,5 @@
+export { AUTH_EXPIRED } from './auth'
 export { getErrorStatus } from './http'
-export { getStored, setStored } from './storage'
+export { homeFor, type Role } from './role'
+export { getStored, removeStored, setStored } from './storage'
 export { normalizeIdentifier, validateIdentifier } from './validation'
