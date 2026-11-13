@@ -1,12 +1,12 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
-import { Alert, Button, Link, Text, TextField } from '../../../atoms'
-import changePassword from '../../../services/users/changePassword'
-import { getErrorStatus } from '../../../utils'
-import FormPage from '../../../templates/FormPage/FormPage'
-import { Form } from '../../../molecules'
+import { useState, type ChangeEvent, type FormEvent } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { Alert, Button, Link, Text, TextField } from "../../../atoms"
+import changePassword from "../../../services/users/changePassword"
+import { getErrorStatus, hasErrors } from "../../../utils"
+import FormPage from "../../../templates/FormPage/FormPage"
+import { Form } from "../../../molecules"
 
-const empty = { current: '', next: '', confirm: '' }
+const empty = { current: "", next: "", confirm: "" }
 
 type Field = keyof typeof empty
 // Values are i18n keys, translated when rendered
@@ -15,10 +15,10 @@ type Errors = Partial<Record<Field, string>>
 const validate = (form: typeof empty) => {
   const errors: Errors = {}
 
-  if (!form.current) errors.current = 'auth.errors.passwordRequired'
-  if (form.next.length < 8) errors.next = 'auth.errors.passwordShort'
-  else if (form.next === form.current) errors.next = 'auth.errors.passwordSame'
-  if (form.confirm !== form.next) errors.confirm = 'auth.errors.passwordMismatch'
+  if (!form.current) errors.current = "auth.errors.passwordRequired"
+  if (form.next.length < 8) errors.next = "auth.errors.passwordShort"
+  else if (form.next === form.current) errors.next = "auth.errors.passwordSame"
+  if (form.confirm !== form.next) errors.confirm = "auth.errors.passwordMismatch"
 
   return errors
 }
@@ -27,7 +27,7 @@ const ChangePassword = () => {
   const { t } = useTranslation()
   const [form, setForm] = useState(empty)
   const [errors, setErrors] = useState<Errors>({})
-  const [formError, setFormError] = useState('')
+  const [formError, setFormError] = useState("")
   const [done, setDone] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -40,12 +40,12 @@ const ChangePassword = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setFormError('')
+    setFormError("")
     setDone(false)
 
     const fieldErrors = validate(form)
     setErrors(fieldErrors)
-    if (Object.keys(fieldErrors).length) return
+    if (hasErrors(fieldErrors)) return
 
     setLoading(true)
     try {
@@ -57,7 +57,7 @@ const ChangePassword = () => {
       const status = getErrorStatus(err)
 
       setFormError(
-        status === 400 || status === 403 ? 'auth.errors.wrongPassword' : 'auth.errors.generic'
+        status === 400 || status === 403 ? "auth.errors.wrongPassword" : "auth.errors.generic"
       )
     } finally {
       setLoading(false)
@@ -65,39 +65,39 @@ const ChangePassword = () => {
   }
 
   return (
-    <FormPage title={t('profile.password.title')} subtitle={t('profile.password.subtitle')}>
+    <FormPage title={t("profile.password.title")} subtitle={t("profile.password.subtitle")}>
       <Form onSubmit={handleSubmit}>
-        {done && <Alert variant="success">{t('profile.password.success')}</Alert>}
+        {done && <Alert variant="success">{t("profile.password.success")}</Alert>}
         {formError && <Alert variant="error">{t(formError)}</Alert>}
 
         <TextField
-          label={t('profile.password.current')}
+          label={t("profile.password.current")}
           type="password"
           autoComplete="current-password"
           value={form.current}
           error={msg(errors.current)}
-          onChange={update('current')}
+          onChange={update("current")}
         />
         <TextField
-          label={t('profile.password.new')}
+          label={t("profile.password.new")}
           type="password"
           autoComplete="new-password"
-          hint={t('auth.register.passwordHint')}
+          hint={t("auth.register.passwordHint")}
           value={form.next}
           error={msg(errors.next)}
-          onChange={update('next')}
+          onChange={update("next")}
         />
         <TextField
-          label={t('profile.password.confirm')}
+          label={t("profile.password.confirm")}
           type="password"
           autoComplete="new-password"
           value={form.confirm}
           error={msg(errors.confirm)}
-          onChange={update('confirm')}
+          onChange={update("confirm")}
         />
 
         <Button type="submit" fullWidth loading={loading}>
-          {t('profile.password.submit')}
+          {t("profile.password.submit")}
         </Button>
       </Form>
 

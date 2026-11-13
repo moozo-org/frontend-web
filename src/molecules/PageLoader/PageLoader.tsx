@@ -1,5 +1,5 @@
-import { Spinner } from '../../atoms'
-import styles from './PageLoader.module.css'
+import { Spinner } from "../../atoms"
+import styles from "./PageLoader.module.css"
 
 const PageLoader = () => (
   <main className={styles.page} aria-busy="true">

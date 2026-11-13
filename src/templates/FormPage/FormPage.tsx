@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react'
-import { Card, Text, Title } from '../../atoms'
-import styles from './FormPage.module.css'
+import type { ReactNode } from "react"
+import { Card, Text, Title } from "../../atoms"
+import styles from "./FormPage.module.css"
 
 interface FormPageProps {
   title: string
