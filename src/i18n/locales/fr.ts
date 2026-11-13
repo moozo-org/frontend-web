@@ -17,13 +17,13 @@ const fr = {
       lastNameRequired: "Saisissez votre nom",
       termsRequired: "Vous devez accepter les conditions",
       wrongCredentials: "Email, téléphone ou mot de passe incorrect.",
-      inactiveAccount: "Ce compte n’est pas actif. Vérifiez votre compte ou contactez le support.",
+      inactiveAccount: "Ce compte n'est pas actif. Vérifiez votre compte ou contactez le support.",
       accountExists: "Un compte existe déjà avec cet email ou ce téléphone.",
       generic: "Une erreur est survenue. Réessayez.",
       codeRequired: "Saisissez le code reçu",
       codeInvalid: "Code invalide ou expiré.",
       passwordMismatch: "Les mots de passe ne correspondent pas",
-      passwordSame: "Le nouveau mot de passe doit être différent de l’ancien",
+      passwordSame: "Le nouveau mot de passe doit être différent de l'ancien",
       wrongPassword: "Mot de passe actuel incorrect.",
       companyRequired: "Saisissez le nom de votre entreprise",
       documentsRequired: "Ajoutez au moins un document",
@@ -55,7 +55,7 @@ const fr = {
     provider: {
       title: "Devenir prestataire",
       subtitle: "Votre compte sera activé après validation de vos documents par notre équipe.",
-      company: "Nom de l’entreprise",
+      company: "Nom de l'entreprise",
       documents: "Documents justificatifs",
       documentsHint: "PDF, JPG ou PNG",
       submit: "Envoyer ma demande",
@@ -78,7 +78,7 @@ const fr = {
       identifier: "Email ou téléphone",
       password: "Mot de passe",
       passwordHint: "Au moins 8 caractères",
-      terms: "J’accepte les conditions d’utilisation et la politique de confidentialité",
+      terms: "J'accepte les conditions d'utilisation et la politique de confidentialité",
       submit: "Créer un compte",
       haveAccount: "Déjà un compte ? <a>Se connecter</a>",
       organizer: "Organisateur",
@@ -118,7 +118,7 @@ const fr = {
       title: "Couleurs",
       rules: [
         "Utiliser uniquement ces variables, jamais un hex brut dans un composant.",
-        "Primary est réservé à l’action principale d’un écran.",
+        "Primary est réservé à l'action principale d'un écran.",
         "Désactivé = opacité 0.5. Teintes = color-mix sur une couleur existante.",
       ],
       usage: {
@@ -152,7 +152,7 @@ const fr = {
     },
     spacing: {
       title: "Espacements & arrondis",
-      rules: ["Utiliser uniquement l’échelle. Pas de 5px, pas de 18px."],
+      rules: ["Utiliser uniquement l'échelle. Pas de 5px, pas de 18px."],
       usage: {
         "--space-1": "Label → message",
         "--space-2": "Dans un contrôle, label → champ",
@@ -166,7 +166,7 @@ const fr = {
       title: "Boutons",
       rules: [
         "Un seul primary par écran. Les autres en secondary ou ghost.",
-        "Pleine largeur sur les formulaires d’auth.",
+        "Pleine largeur sur les formulaires d'auth.",
         "Danger uniquement pour les actions destructives (supprimer, quitter).",
       ],
       primary: "Principal",
@@ -181,7 +181,7 @@ const fr = {
       title: "Champs",
       rules: [
         "Toujours un label visible. Le placeholder est un exemple, pas le label.",
-        "L’erreur remplace l’aide, sous le champ.",
+        "L'erreur remplace l'aide, sous le champ.",
         "Les erreurs de formulaire (mauvais mot de passe) vont dans une Alert au-dessus.",
       ],
       email: "Email",
@@ -199,7 +199,7 @@ const fr = {
         "Switch : un réglage appliqué immédiatement.",
         "Pill : choisir une option parmi quelques-unes, courtes.",
       ],
-      acceptTerms: "J’accepte les <a>conditions</a>",
+      acceptTerms: "J'accepte les <a>conditions</a>",
       required: "Obligatoire",
       termsError: "Vous devez accepter les conditions",
       notifications: "Notifications",
