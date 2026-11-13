@@ -195,7 +195,7 @@ const StyleGuide = () => {
           label={
             <Trans
               i18nKey="styleGuide.selection.acceptTerms"
-              components={{ link: <Link to="/style" /> }}
+              components={{ a: <Link to="/style" /> }}
             />
           }
           checked={checked}

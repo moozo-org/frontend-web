@@ -1,12 +1,12 @@
 import { useState, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
-import { Alert, Button, Card, Link, Text, TextField, Title } from '../../../atoms'
+import { Alert, Button, Link, Text, TextField } from '../../../atoms'
 import { useAuth } from '../../../hooks/useAuth'
 import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
-import styles from './Login.module.css'
+import { Form } from '../../../molecules'
+import FormPage from '../../../templates/FormPage/FormPage'
 
-// Values are i18n keys, translated when rendered
 interface Errors {
   identifier?: string
   password?: string
@@ -64,55 +64,46 @@ const Login = () => {
   }
 
   return (
-    <main className={styles.page}>
-      <Card>
-        <div className={styles.header}>
-          <Title>{t('auth.login.title')}</Title>
-          <Text variant="muted">{t('auth.login.subtitle')}</Text>
-        </div>
+    <FormPage title={t('auth.login.title')} subtitle={t('auth.login.subtitle')}>
+      <Form onSubmit={handleSubmit}>
+        {state?.passwordReset && <Alert variant="success">{t('auth.login.passwordReset')}</Alert>}
+        {formError && <Alert variant="error">{t(formError)}</Alert>}
 
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          {state?.passwordReset && <Alert variant="success">{t('auth.login.passwordReset')}</Alert>}
-          {formError && <Alert variant="error">{t(formError)}</Alert>}
+        <TextField
+          label={t('auth.login.identifier')}
+          autoComplete="username"
+          value={identifier}
+          error={msg(errors.identifier)}
+          onChange={(e) => {
+            setIdentifier(e.target.value)
+            setErrors((prev) => ({ ...prev, identifier: undefined }))
+          }}
+        />
 
-          <TextField
-            label={t('auth.login.identifier')}
-            autoComplete="username"
-            value={identifier}
-            error={msg(errors.identifier)}
-            onChange={(e) => {
-              setIdentifier(e.target.value)
-              setErrors((prev) => ({ ...prev, identifier: undefined }))
-            }}
-          />
+        <TextField
+          label={t('auth.login.password')}
+          type="password"
+          autoComplete="current-password"
+          value={password}
+          error={msg(errors.password)}
+          onChange={(e) => {
+            setPassword(e.target.value)
+            setErrors((prev) => ({ ...prev, password: undefined }))
+          }}
+        />
+        <Link to="/forgot-password" variant="muted">
+          {t('auth.login.forgot')}
+        </Link>
 
-          <div className={styles.password}>
-            <TextField
-              label={t('auth.login.password')}
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              error={msg(errors.password)}
-              onChange={(e) => {
-                setPassword(e.target.value)
-                setErrors((prev) => ({ ...prev, password: undefined }))
-              }}
-            />
-            <Link to="/forgot-password" variant="muted">
-              {t('auth.login.forgot')}
-            </Link>
-          </div>
+        <Button type="submit" fullWidth loading={loading}>
+          {t('auth.login.submit')}
+        </Button>
+      </Form>
 
-          <Button type="submit" fullWidth loading={loading}>
-            {t('auth.login.submit')}
-          </Button>
-        </form>
-
-        <Text variant="small">
-          <Trans i18nKey="auth.login.noAccount" components={{ link: <Link to="/register" /> }} />
-        </Text>
-      </Card>
-    </main>
+      <Text variant="small">
+        <Trans i18nKey="auth.login.noAccount" components={{ a: <Link to="/register" /> }} />
+      </Text>
+    </FormPage>
   )
 }
 

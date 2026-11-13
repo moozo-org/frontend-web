@@ -1,10 +1,11 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Navigate, useLocation, useNavigate } from 'react-router'
-import { Alert, Button, Card, Link, Text, TextField, Title } from '../../../atoms'
+import { Alert, Button, Link, Text, TextField } from '../../../atoms'
 import resetPassword from '../../../services/auth/resetPassword'
 import { getErrorStatus } from '../../../utils'
-import styles from '../../FormPage.module.css'
+import FormPage from '../../../templates/FormPage/FormPage'
+import { Form } from '../../../molecules'
 
 const empty = { code: '', password: '', confirm: '' }
 
@@ -67,52 +68,45 @@ const ResetPassword = () => {
   }
 
   return (
-    <main className={styles.page}>
-      <Card>
-        <div className={styles.header}>
-          <Title>{t('auth.reset.title')}</Title>
-          <Text variant="muted">{t('auth.reset.subtitle')}</Text>
-        </div>
+    <FormPage title={t('auth.reset.title')} subtitle={t('auth.reset.subtitle')}>
+      <Form onSubmit={handleSubmit}>
+        {formError && <Alert variant="error">{t(formError)}</Alert>}
 
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          {formError && <Alert variant="error">{t(formError)}</Alert>}
+        <TextField
+          label={t('auth.reset.code')}
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          value={form.code}
+          error={msg(errors.code)}
+          onChange={update('code')}
+        />
+        <TextField
+          label={t('auth.reset.password')}
+          type="password"
+          autoComplete="new-password"
+          hint={t('auth.register.passwordHint')}
+          value={form.password}
+          error={msg(errors.password)}
+          onChange={update('password')}
+        />
+        <TextField
+          label={t('auth.reset.confirm')}
+          type="password"
+          autoComplete="new-password"
+          value={form.confirm}
+          error={msg(errors.confirm)}
+          onChange={update('confirm')}
+        />
 
-          <TextField
-            label={t('auth.reset.code')}
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            value={form.code}
-            error={msg(errors.code)}
-            onChange={update('code')}
-          />
-          <TextField
-            label={t('auth.reset.password')}
-            type="password"
-            autoComplete="new-password"
-            hint={t('auth.register.passwordHint')}
-            value={form.password}
-            error={msg(errors.password)}
-            onChange={update('password')}
-          />
-          <TextField
-            label={t('auth.reset.confirm')}
-            type="password"
-            autoComplete="new-password"
-            value={form.confirm}
-            error={msg(errors.confirm)}
-            onChange={update('confirm')}
-          />
+        <Button type="submit" fullWidth loading={loading}>
+          {t('auth.reset.submit')}
+        </Button>
+      </Form>
 
-          <Button type="submit" fullWidth loading={loading}>
-            {t('auth.reset.submit')}
-          </Button>
-        </form>
-
-        <Text variant="small">
-          <Trans i18nKey="auth.forgot.back" components={{ link: <Link to="/login" /> }} />
-        </Text>
-      </Card>
-    </main>
+      <Text variant="small">
+        <Trans i18nKey="auth.forgot.back" components={{ a: <Link to="/login" /> }} />
+      </Text>
+    </FormPage>
   )
 }
 

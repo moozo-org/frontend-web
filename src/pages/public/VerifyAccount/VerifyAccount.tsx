@@ -1,11 +1,12 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useLocation, useNavigate } from 'react-router'
-import { Alert, Button, Card, Text, TextField, Title } from '../../../atoms'
+import { Alert, Button, TextField } from '../../../atoms'
 import { useAuth } from '../../../hooks/useAuth'
 import resendCode from '../../../services/auth/resendCode'
 import { getErrorStatus, homeFor } from '../../../utils'
-import styles from '../../FormPage.module.css'
+import FormPage from '../../../templates/FormPage/FormPage'
+import { Form } from '../../../molecules'
 
 const RESEND_DELAY = 30
 
@@ -71,40 +72,33 @@ const VerifyAccount = () => {
   }
 
   return (
-    <main className={styles.page}>
-      <Card>
-        <div className={styles.header}>
-          <Title>{t('auth.verify.title')}</Title>
-          <Text variant="muted">{t('auth.verify.subtitle', { identifier })}</Text>
-        </div>
+    <FormPage title={t('auth.verify.title')} subtitle={t('auth.verify.subtitle', { identifier })}>
+      <Form onSubmit={handleSubmit}>
+        {resent && <Alert variant="success">{t('auth.verify.resent')}</Alert>}
+        {formError && <Alert variant="error">{t(formError)}</Alert>}
 
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          {resent && <Alert variant="success">{t('auth.verify.resent')}</Alert>}
-          {formError && <Alert variant="error">{t(formError)}</Alert>}
+        <TextField
+          label={t('auth.verify.code')}
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          value={code}
+          error={error ? t(error) : undefined}
+          onChange={(e) => {
+            setCode(e.target.value)
+            setError('')
+          }}
+        />
 
-          <TextField
-            label={t('auth.verify.code')}
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            value={code}
-            error={error ? t(error) : undefined}
-            onChange={(e) => {
-              setCode(e.target.value)
-              setError('')
-            }}
-          />
-
-          <Button type="submit" fullWidth loading={loading}>
-            {t('auth.verify.submit')}
-          </Button>
-          <Button variant="ghost" fullWidth disabled={cooldown > 0} onClick={handleResend}>
-            {cooldown > 0
-              ? t('auth.verify.resendIn', { seconds: cooldown })
-              : t('auth.verify.resend')}
-          </Button>
-        </form>
-      </Card>
-    </main>
+        <Button type="submit" fullWidth loading={loading}>
+          {t('auth.verify.submit')}
+        </Button>
+        <Button variant="ghost" fullWidth disabled={cooldown > 0} onClick={handleResend}>
+          {cooldown > 0
+            ? t('auth.verify.resendIn', { seconds: cooldown })
+            : t('auth.verify.resend')}
+        </Button>
+      </Form>
+    </FormPage>
   )
 }
 
