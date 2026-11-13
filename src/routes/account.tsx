@@ -1,6 +1,6 @@
-import { Route } from 'react-router'
-import RequireRole from './guards/RequireRole'
-import { ChangePassword, Placeholder, Profile } from '../pages'
+import { Route } from "react-router"
+import RequireRole from "./guards/RequireRole"
+import { ChangePassword, Placeholder, Profile } from "../pages"
 
 export const accountRoutes = (
   <Route element={<RequireRole />}>

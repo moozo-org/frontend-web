@@ -1,10 +1,10 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import Spinner from '../Spinner/Spinner'
-import styles from './Button.module.css'
+import type { ButtonHTMLAttributes, ReactNode } from "react"
+import Spinner from "../Spinner/Spinner"
+import styles from "./Button.module.css"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
-  size?: 'md' | 'sm'
+  variant?: "primary" | "secondary" | "ghost" | "danger"
+  size?: "md" | "sm"
   loading?: boolean
   fullWidth?: boolean
   iconLeft?: ReactNode
@@ -12,14 +12,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = ({
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   loading,
   fullWidth,
   iconLeft,
   iconRight,
   disabled,
-  type = 'button',
+  type = "button",
   className,
   children,
   ...props
@@ -35,7 +35,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={classes.filter(Boolean).join(' ')}
+      className={classes.filter(Boolean).join(" ")}
       disabled={disabled || loading}
       aria-busy={loading}
       {...props}

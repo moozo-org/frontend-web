@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
-import styles from './Title.module.css'
+import type { ReactNode } from "react"
+import styles from "./Title.module.css"
 
 interface TitleProps {
   level?: 1 | 2 | 3

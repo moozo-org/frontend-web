@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import { Outlet, useParams } from 'react-router'
+import { useEffect, useState } from "react"
+import { Outlet, useParams } from "react-router"
 
-import { ErrorPage } from '../pages'
+import { ErrorPage } from "../pages"
 
 const EventLayout = () => {
   const { eventId } = useParams()
-  const [status, setStatus] = useState<'loading' | 'valid' | 'invalid'>('loading')
+  const [status, setStatus] = useState<"loading" | "valid" | "invalid">("loading")
 
   useEffect(() => {
     let cancelled = false
@@ -16,9 +16,9 @@ const EventLayout = () => {
         // const res = await fetch(`https://api.moozo.app/events/${eventId}`)
         // if (!res.ok) throw new Error('Event not found')
         // if (!cancelled) setStatus(res.ok ? 'valid' : 'invalid')
-        setStatus('valid')
+        setStatus("valid")
       } catch {
-        if (!cancelled) setStatus('invalid')
+        if (!cancelled) setStatus("invalid")
       }
     }
     checkEvent()
@@ -27,8 +27,8 @@ const EventLayout = () => {
     }
   }, [eventId])
 
-  if (status === 'loading') return null
-  if (status === 'invalid') return <ErrorPage />
+  if (status === "loading") return null
+  if (status === "invalid") return <ErrorPage />
 
   return <Outlet context={{ eventId }} />
 }

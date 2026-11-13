@@ -1,7 +1,7 @@
-import { createContext } from 'react'
-import type { Role } from '../utils'
+import { createContext } from "react"
+import type { Role } from "../utils"
 
-export type AuthStatus = 'loading' | 'authenticated' | 'anonymous' | 'error'
+export type AuthStatus = "loading" | "authenticated" | "anonymous" | "error"
 
 export type AuthContextType = {
   status: AuthStatus

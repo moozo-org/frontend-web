@@ -1,5 +1,5 @@
-import { useId } from 'react'
-import styles from './Switch.module.css'
+import { useId } from "react"
+import styles from "./Switch.module.css"
 
 interface SwitchProps {
   checked: boolean

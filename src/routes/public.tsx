@@ -1,5 +1,5 @@
-import { Route } from 'react-router'
-import RequireAnonymous from './guards/RequireAnonymous'
+import { Route } from "react-router"
+import RequireAnonymous from "./guards/RequireAnonymous"
 import {
   ForgotPassword,
   Home,
@@ -9,7 +9,7 @@ import {
   ResetPassword,
   StyleGuide,
   VerifyAccount,
-} from '../pages'
+} from "../pages"
 
 export const publicRoutes = (
   <>
