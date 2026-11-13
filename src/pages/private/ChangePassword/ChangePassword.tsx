@@ -1,9 +1,10 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Alert, Button, Card, Link, Text, TextField, Title } from '../../../atoms'
+import { Alert, Button, Link, Text, TextField } from '../../../atoms'
 import changePassword from '../../../services/users/changePassword'
 import { getErrorStatus } from '../../../utils'
-import styles from '../../FormPage.module.css'
+import FormPage from '../../../templates/FormPage/FormPage'
+import { Form } from '../../../molecules'
 
 const empty = { current: '', next: '', confirm: '' }
 
@@ -64,53 +65,46 @@ const ChangePassword = () => {
   }
 
   return (
-    <main className={styles.page}>
-      <Card>
-        <div className={styles.header}>
-          <Title>{t('profile.password.title')}</Title>
-          <Text variant="muted">{t('profile.password.subtitle')}</Text>
-        </div>
+    <FormPage title={t('profile.password.title')} subtitle={t('profile.password.subtitle')}>
+      <Form onSubmit={handleSubmit}>
+        {done && <Alert variant="success">{t('profile.password.success')}</Alert>}
+        {formError && <Alert variant="error">{t(formError)}</Alert>}
 
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          {done && <Alert variant="success">{t('profile.password.success')}</Alert>}
-          {formError && <Alert variant="error">{t(formError)}</Alert>}
+        <TextField
+          label={t('profile.password.current')}
+          type="password"
+          autoComplete="current-password"
+          value={form.current}
+          error={msg(errors.current)}
+          onChange={update('current')}
+        />
+        <TextField
+          label={t('profile.password.new')}
+          type="password"
+          autoComplete="new-password"
+          hint={t('auth.register.passwordHint')}
+          value={form.next}
+          error={msg(errors.next)}
+          onChange={update('next')}
+        />
+        <TextField
+          label={t('profile.password.confirm')}
+          type="password"
+          autoComplete="new-password"
+          value={form.confirm}
+          error={msg(errors.confirm)}
+          onChange={update('confirm')}
+        />
 
-          <TextField
-            label={t('profile.password.current')}
-            type="password"
-            autoComplete="current-password"
-            value={form.current}
-            error={msg(errors.current)}
-            onChange={update('current')}
-          />
-          <TextField
-            label={t('profile.password.new')}
-            type="password"
-            autoComplete="new-password"
-            hint={t('auth.register.passwordHint')}
-            value={form.next}
-            error={msg(errors.next)}
-            onChange={update('next')}
-          />
-          <TextField
-            label={t('profile.password.confirm')}
-            type="password"
-            autoComplete="new-password"
-            value={form.confirm}
-            error={msg(errors.confirm)}
-            onChange={update('confirm')}
-          />
+        <Button type="submit" fullWidth loading={loading}>
+          {t('profile.password.submit')}
+        </Button>
+      </Form>
 
-          <Button type="submit" fullWidth loading={loading}>
-            {t('profile.password.submit')}
-          </Button>
-        </form>
-
-        <Text variant="small">
-          <Trans i18nKey="profile.password.back" components={{ link: <Link to="/profile" /> }} />
-        </Text>
-      </Card>
-    </main>
+      <Text variant="small">
+        <Trans i18nKey="profile.password.back" components={{ a: <Link to="/profile" /> }} />
+      </Text>
+    </FormPage>
   )
 }
 
