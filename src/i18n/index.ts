@@ -12,7 +12,7 @@ i18n.on("languageChanged", () => {
   document.documentElement.lang = lang
 })
 
-i18n.use(initReactI18next).init({
+void i18n.use(initReactI18next).init({
   resources: {
     fr: { translation: fr },
     en: { translation: en },

@@ -55,7 +55,7 @@ const RegisterForm = ({ provider = false }: { provider?: boolean }) => {
     setLoading(true)
     try {
       await (provider ? registerProvider({ ...base, companyName, documents }) : register(base))
-      navigate("/verify-account", { replace: true, state: { identifier: base.identifier } })
+      void navigate("/verify-account", { replace: true, state: { identifier: base.identifier } })
     } catch (err) {
       setFormError(
         getErrorStatus(err) === 409 ? "auth.errors.accountExists" : "auth.errors.generic"

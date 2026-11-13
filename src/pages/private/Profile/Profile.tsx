@@ -12,7 +12,7 @@ const Profile = () => {
 
   const handleLogout = () => {
     logout()
-    navigate("/login", { replace: true })
+    void navigate("/login", { replace: true })
   }
 
   // TODO: show and edit the personal details, this page only holds the account actions for now
