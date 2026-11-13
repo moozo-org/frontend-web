@@ -55,7 +55,7 @@ const ResetPassword = () => {
     setLoading(true)
     try {
       await resetPassword(identifier, data.code, data.password)
-      navigate("/login", { replace: true, state: { passwordReset: true } })
+      void navigate("/login", { replace: true, state: { passwordReset: true } })
     } catch (err) {
       const status = getErrorStatus(err)
 

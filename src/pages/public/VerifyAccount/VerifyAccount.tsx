@@ -46,7 +46,7 @@ const VerifyAccount = () => {
     setLoading(true)
     try {
       const userRole = await verify(identifier, trimmed)
-      navigate(homeFor(userRole), { replace: true })
+      void navigate(homeFor(userRole), { replace: true })
     } catch (err) {
       setFormError(
         getErrorStatus(err) === 400 || getErrorStatus(err) === 422

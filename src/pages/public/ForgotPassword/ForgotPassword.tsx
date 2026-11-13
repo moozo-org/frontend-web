@@ -36,7 +36,7 @@ const ForgotPassword = () => {
       }
     }
 
-    navigate("/reset-password", { state: { identifier: id } })
+    void navigate("/reset-password", { state: { identifier: id } })
   }
 
   return (
