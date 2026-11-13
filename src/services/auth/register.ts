@@ -1,5 +1,5 @@
-import axiosInstance from '../axiosInstance'
-import { setStored } from '../../utils'
+import axiosInstance from "../axiosInstance"
+import { setStored } from "../../utils"
 
 interface RegisterPayload {
   firstName: string
@@ -13,9 +13,9 @@ interface RegisterResponse {
 }
 
 async function register(payload: RegisterPayload) {
-  const { data } = await axiosInstance.post<RegisterResponse>('/auth/register', payload)
+  const { data } = await axiosInstance.post<RegisterResponse>("/auth/register", payload)
 
-  setStored('token', data.token)
+  setStored("token", data.token)
 
   return data
 }

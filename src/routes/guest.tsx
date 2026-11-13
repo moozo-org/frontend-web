@@ -1,7 +1,7 @@
-import { Route } from 'react-router'
-import EventLayout from '../layouts/EventLayout'
-import RequireEventGuest from './guards/RequireEventGuest'
-import { Photos, Placeholder, Program, SeatingChart, Table, Verification, Welcome } from '../pages'
+import { Route } from "react-router"
+import EventLayout from "../layouts/EventLayout"
+import RequireEventGuest from "./guards/RequireEventGuest"
+import { Photos, Placeholder, Program, SeatingChart, Table, Verification, Welcome } from "../pages"
 
 export const guestRoutes = (
   <Route path="event/:eventId" element={<EventLayout />}>

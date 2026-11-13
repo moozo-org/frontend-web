@@ -1,5 +1,5 @@
-import type { FormHTMLAttributes } from 'react'
-import styles from './Form.module.css'
+import type { FormHTMLAttributes } from "react"
+import styles from "./Form.module.css"
 
 const Form = (props: FormHTMLAttributes<HTMLFormElement>) => (
   <form className={styles.form} noValidate {...props} />

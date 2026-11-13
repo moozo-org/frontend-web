@@ -1,12 +1,12 @@
-import { useEffect, useState, type FormEvent } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Navigate, useLocation, useNavigate } from 'react-router'
-import { Alert, Button, TextField } from '../../../atoms'
-import { useAuth } from '../../../hooks/useAuth'
-import resendCode from '../../../services/auth/resendCode'
-import { getErrorStatus, homeFor } from '../../../utils'
-import FormPage from '../../../templates/FormPage/FormPage'
-import { Form } from '../../../molecules'
+import { useEffect, useState, type FormEvent } from "react"
+import { useTranslation } from "react-i18next"
+import { Navigate, useLocation, useNavigate } from "react-router"
+import { Alert, Button, TextField } from "../../../atoms"
+import { useAuth } from "../../../hooks/useAuth"
+import resendCode from "../../../services/auth/resendCode"
+import { getErrorStatus, homeFor } from "../../../utils"
+import FormPage from "../../../templates/FormPage/FormPage"
+import { Form } from "../../../molecules"
 
 const RESEND_DELAY = 30
 
@@ -16,9 +16,9 @@ const VerifyAccount = () => {
   const { state } = useLocation()
   const { status, role, verify } = useAuth()
   const identifier: string | undefined = state?.identifier
-  const [code, setCode] = useState('')
-  const [error, setError] = useState('')
-  const [formError, setFormError] = useState('')
+  const [code, setCode] = useState("")
+  const [error, setError] = useState("")
+  const [formError, setFormError] = useState("")
   const [resent, setResent] = useState(false)
   const [loading, setLoading] = useState(false)
   // Register just sent a code, so the first resend has to wait too
@@ -33,15 +33,15 @@ const VerifyAccount = () => {
 
   // The identifier only travels in the navigation state, so a direct visit has nothing to verify
   if (!identifier) return <Navigate to="/login" replace />
-  if (status === 'authenticated') return <Navigate to={homeFor(role)} replace />
+  if (status === "authenticated") return <Navigate to={homeFor(role)} replace />
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setFormError('')
+    setFormError("")
     setResent(false)
 
     const trimmed = code.trim()
-    if (!trimmed) return setError('auth.errors.codeRequired')
+    if (!trimmed) return setError("auth.errors.codeRequired")
 
     setLoading(true)
     try {
@@ -50,8 +50,8 @@ const VerifyAccount = () => {
     } catch (err) {
       setFormError(
         getErrorStatus(err) === 400 || getErrorStatus(err) === 422
-          ? 'auth.errors.codeInvalid'
-          : 'auth.errors.generic'
+          ? "auth.errors.codeInvalid"
+          : "auth.errors.generic"
       )
     } finally {
       setLoading(false)
@@ -59,7 +59,7 @@ const VerifyAccount = () => {
   }
 
   const handleResend = async () => {
-    setFormError('')
+    setFormError("")
     setResent(false)
 
     try {
@@ -67,35 +67,35 @@ const VerifyAccount = () => {
       setResent(true)
       setCooldown(RESEND_DELAY)
     } catch {
-      setFormError('auth.errors.generic')
+      setFormError("auth.errors.generic")
     }
   }
 
   return (
-    <FormPage title={t('auth.verify.title')} subtitle={t('auth.verify.subtitle', { identifier })}>
+    <FormPage title={t("auth.verify.title")} subtitle={t("auth.verify.subtitle", { identifier })}>
       <Form onSubmit={handleSubmit}>
-        {resent && <Alert variant="success">{t('auth.verify.resent')}</Alert>}
+        {resent && <Alert variant="success">{t("auth.verify.resent")}</Alert>}
         {formError && <Alert variant="error">{t(formError)}</Alert>}
 
         <TextField
-          label={t('auth.verify.code')}
+          label={t("auth.verify.code")}
           inputMode="numeric"
           autoComplete="one-time-code"
           value={code}
           error={error ? t(error) : undefined}
           onChange={(e) => {
             setCode(e.target.value)
-            setError('')
+            setError("")
           }}
         />
 
         <Button type="submit" fullWidth loading={loading}>
-          {t('auth.verify.submit')}
+          {t("auth.verify.submit")}
         </Button>
         <Button variant="ghost" fullWidth disabled={cooldown > 0} onClick={handleResend}>
           {cooldown > 0
-            ? t('auth.verify.resendIn', { seconds: cooldown })
-            : t('auth.verify.resend')}
+            ? t("auth.verify.resendIn", { seconds: cooldown })
+            : t("auth.verify.resend")}
         </Button>
       </Form>
     </FormPage>

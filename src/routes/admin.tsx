@@ -1,6 +1,6 @@
-import { Route } from 'react-router'
-import RequireRole from './guards/RequireRole'
-import { Placeholder } from '../pages'
+import { Route } from "react-router"
+import RequireRole from "./guards/RequireRole"
+import { Placeholder } from "../pages"
 
 export const adminRoutes = (
   <Route path="admin" element={<RequireRole role="ADMIN" />}>

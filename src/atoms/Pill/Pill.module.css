@@ -14,7 +14,7 @@
     background-color var(--transition),
     border-color var(--transition);
 
-  &[aria-pressed='true'] {
+  &[aria-pressed="true"] {
     background-color: var(--primary);
     border-color: var(--primary);
     color: var(--on-primary);

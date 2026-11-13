@@ -1,11 +1,11 @@
-import { useState, type FormEvent } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router'
-import { Alert, Button, Link, Text, TextField } from '../../../atoms'
-import { useAuth } from '../../../hooks/useAuth'
-import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
-import { Form } from '../../../molecules'
-import FormPage from '../../../templates/FormPage/FormPage'
+import { useState, type FormEvent } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { useLocation } from "react-router"
+import { Alert, Button, Link, Text, TextField } from "../../../atoms"
+import { useAuth } from "../../../hooks/useAuth"
+import { getErrorStatus, normalizeIdentifier, validateIdentifier, hasErrors } from "../../../utils"
+import { Form } from "../../../molecules"
+import FormPage from "../../../templates/FormPage/FormPage"
 
 interface Errors {
   identifier?: string
@@ -17,7 +17,7 @@ const validate = (identifier: string, password: string) => {
 
   errors.identifier = validateIdentifier(identifier)
 
-  if (!password) errors.password = 'auth.errors.passwordRequired'
+  if (!password) errors.password = "auth.errors.passwordRequired"
 
   return errors
 }
@@ -26,22 +26,22 @@ const Login = () => {
   const { t } = useTranslation()
   const { state } = useLocation()
   const { login } = useAuth()
-  const [identifier, setIdentifier] = useState('')
-  const [password, setPassword] = useState('')
+  const [identifier, setIdentifier] = useState("")
+  const [password, setPassword] = useState("")
   const [errors, setErrors] = useState<Errors>({})
-  const [formError, setFormError] = useState('')
+  const [formError, setFormError] = useState("")
   const [loading, setLoading] = useState(false)
 
   const msg = (key?: string) => (key ? t(key) : undefined)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setFormError('')
+    setFormError("")
 
     const id = normalizeIdentifier(identifier)
     const fieldErrors = validate(id, password)
     setErrors(fieldErrors)
-    if (Object.keys(fieldErrors).length) return
+    if (hasErrors(fieldErrors)) return
 
     setLoading(true)
     try {
@@ -53,10 +53,10 @@ const Login = () => {
       // TODO: the API sends 403 for both pending and banned accounts, split them once it says which
       setFormError(
         status === 401
-          ? 'auth.errors.wrongCredentials'
+          ? "auth.errors.wrongCredentials"
           : status === 403
-            ? 'auth.errors.inactiveAccount'
-            : 'auth.errors.generic'
+            ? "auth.errors.inactiveAccount"
+            : "auth.errors.generic"
       )
     } finally {
       setLoading(false)
@@ -64,13 +64,13 @@ const Login = () => {
   }
 
   return (
-    <FormPage title={t('auth.login.title')} subtitle={t('auth.login.subtitle')}>
+    <FormPage title={t("auth.login.title")} subtitle={t("auth.login.subtitle")}>
       <Form onSubmit={handleSubmit}>
-        {state?.passwordReset && <Alert variant="success">{t('auth.login.passwordReset')}</Alert>}
+        {state?.passwordReset && <Alert variant="success">{t("auth.login.passwordReset")}</Alert>}
         {formError && <Alert variant="error">{t(formError)}</Alert>}
 
         <TextField
-          label={t('auth.login.identifier')}
+          label={t("auth.login.identifier")}
           autoComplete="username"
           value={identifier}
           error={msg(errors.identifier)}
@@ -81,7 +81,7 @@ const Login = () => {
         />
 
         <TextField
-          label={t('auth.login.password')}
+          label={t("auth.login.password")}
           type="password"
           autoComplete="current-password"
           value={password}
@@ -92,11 +92,11 @@ const Login = () => {
           }}
         />
         <Link to="/forgot-password" variant="muted">
-          {t('auth.login.forgot')}
+          {t("auth.login.forgot")}
         </Link>
 
         <Button type="submit" fullWidth loading={loading}>
-          {t('auth.login.submit')}
+          {t("auth.login.submit")}
         </Button>
       </Form>
 

@@ -1,6 +1,6 @@
-import { Navigate, Route } from 'react-router'
-import RequireRole from './guards/RequireRole'
-import { Placeholder } from '../pages'
+import { Navigate, Route } from "react-router"
+import RequireRole from "./guards/RequireRole"
+import { Placeholder } from "../pages"
 
 export const providerRoutes = (
   <Route path="provider" element={<RequireRole role="PROVIDER" />}>

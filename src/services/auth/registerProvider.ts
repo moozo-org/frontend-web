@@ -1,4 +1,4 @@
-import axiosInstance from '../axiosInstance'
+import axiosInstance from "../axiosInstance"
 
 interface RegisterProviderPayload {
   firstName: string
@@ -14,9 +14,9 @@ async function registerProvider({ documents, ...fields }: RegisterProviderPayloa
   const body = new FormData()
 
   Object.entries(fields).forEach(([key, value]) => body.append(key, value))
-  documents.forEach((file) => body.append('documents', file))
+  documents.forEach((file) => body.append("documents", file))
 
-  await axiosInstance.post('/auth/register/provider', body)
+  await axiosInstance.post("/auth/register/provider", body)
 }
 
 export default registerProvider

@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM node:26-alpine AS base
 WORKDIR /app
 RUN npm install -g --ignore-scripts serve@14.2.7
 COPY package*.json ./

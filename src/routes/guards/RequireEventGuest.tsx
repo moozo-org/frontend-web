@@ -1,5 +1,5 @@
-import { Navigate, Outlet, useParams } from 'react-router'
-import { getStored } from '../../utils'
+import { Navigate, Outlet, useParams } from "react-router"
+import { getStored } from "../../utils"
 
 // TODO: store `guest-token:<eventId>` once the event registration / verification flow exists
 const RequireEventGuest = () => {

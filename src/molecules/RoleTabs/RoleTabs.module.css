@@ -21,7 +21,7 @@
     background-color var(--transition),
     color var(--transition);
 
-  &[aria-current='page'] {
+  &[aria-current="page"] {
     background-color: var(--primary);
     color: var(--on-primary);
   }

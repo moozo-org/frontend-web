@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react'
-import { AuthContext, type AuthStatus } from '../context/AuthContext'
-import loginRequest from '../services/auth/login'
-import verifyRequest from '../services/auth/verify'
-import getMe from '../services/users/me'
-import { AUTH_EXPIRED, getErrorStatus, getStored, removeStored, type Role } from '../utils'
+import { useEffect, useState } from "react"
+import { AuthContext, type AuthStatus } from "../context/AuthContext"
+import loginRequest from "../services/auth/login"
+import verifyRequest from "../services/auth/verify"
+import getMe from "../services/users/me"
+import { AUTH_EXPIRED, getErrorStatus, getStored, removeStored, type Role } from "../utils"
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<AuthStatus>(() =>
-    getStored('token') ? 'loading' : 'anonymous'
+    getStored("token") ? "loading" : "anonymous"
   )
   const [role, setRole] = useState<Role | null>(null)
 
   // Restore the session once, so guards and pages share a single /users/me call
   useEffect(() => {
-    if (!getStored('token')) return
+    if (!getStored("token")) return
 
     let cancelled = false
 
@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .then((me) => {
         if (cancelled) return
         setRole(me.role)
-        setStatus('authenticated')
+        setStatus("authenticated")
       })
       .catch((err) => {
         if (cancelled) return
@@ -29,10 +29,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // 401: expired token, 403: account pending or banned. Anything else is a real failure
         if (code === 401 || code === 403) {
-          removeStored('token')
-          setStatus('anonymous')
+          removeStored("token")
+          setStatus("anonymous")
         } else {
-          setStatus('error')
+          setStatus("error")
         }
       })
 
@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const onExpired = () => {
       setRole(null)
-      setStatus('anonymous')
+      setStatus("anonymous")
     }
 
     window.addEventListener(AUTH_EXPIRED, onExpired)
@@ -55,7 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const data = await loginRequest(identifier, password)
 
     setRole(data.role)
-    setStatus('authenticated')
+    setStatus("authenticated")
 
     return data.role
   }
@@ -64,15 +64,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const data = await verifyRequest(identifier, code)
 
     setRole(data.role)
-    setStatus('authenticated')
+    setStatus("authenticated")
 
     return data.role
   }
 
   const logout = () => {
-    removeStored('token')
+    removeStored("token")
     setRole(null)
-    setStatus('anonymous')
+    setStatus("anonymous")
   }
 
   return (
