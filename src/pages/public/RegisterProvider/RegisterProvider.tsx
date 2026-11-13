@@ -1,11 +1,11 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
-import { Alert, Button, Card, Checkbox, Link, Text, TextField, Title } from '../../../atoms'
+import { Alert, Button, Checkbox, Link, Text, TextField } from '../../../atoms'
 import registerProvider from '../../../services/auth/registerProvider'
 import { getErrorStatus, normalizeIdentifier, validateIdentifier } from '../../../utils'
-import { RoleTabs } from '../../../molecules'
-import styles from '../../FormPage.module.css'
+import FormPage from '../../../templates/FormPage/FormPage'
+import { FieldRow, Form, RoleTabs } from '../../../molecules'
 
 const empty = { firstName: '', lastName: '', companyName: '', identifier: '', password: '' }
 
@@ -75,94 +75,90 @@ const RegisterProvider = () => {
   }
 
   return (
-    <main className={styles.page}>
-      <Card>
-        <RoleTabs />
-        <div className={styles.header}>
-          <Title>{t('auth.provider.title')}</Title>
-          <Text variant="muted">{t('auth.provider.subtitle')}</Text>
-        </div>
+    <FormPage
+      title={t('auth.provider.title')}
+      subtitle={t('auth.provider.subtitle')}
+      tabs={<RoleTabs />}
+    >
+      <Form onSubmit={handleSubmit}>
+        {formError && <Alert variant="error">{t(formError)}</Alert>}
 
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          {formError && <Alert variant="error">{t(formError)}</Alert>}
-
-          <div className={styles.row}>
-            <TextField
-              label={t('auth.register.firstName')}
-              autoComplete="given-name"
-              value={form.firstName}
-              error={msg(errors.firstName)}
-              onChange={update('firstName')}
-            />
-            <TextField
-              label={t('auth.register.lastName')}
-              autoComplete="family-name"
-              value={form.lastName}
-              error={msg(errors.lastName)}
-              onChange={update('lastName')}
-            />
-          </div>
-
+        <FieldRow>
           <TextField
-            label={t('auth.provider.company')}
-            autoComplete="organization"
-            value={form.companyName}
-            error={msg(errors.companyName)}
-            onChange={update('companyName')}
+            label={t('auth.register.firstName')}
+            autoComplete="given-name"
+            value={form.firstName}
+            error={msg(errors.firstName)}
+            onChange={update('firstName')}
           />
-
           <TextField
-            label={t('auth.register.identifier')}
-            autoComplete="username"
-            value={form.identifier}
-            error={msg(errors.identifier)}
-            onChange={update('identifier')}
+            label={t('auth.register.lastName')}
+            autoComplete="family-name"
+            value={form.lastName}
+            error={msg(errors.lastName)}
+            onChange={update('lastName')}
           />
+        </FieldRow>
 
-          <TextField
-            label={t('auth.register.password')}
-            type="password"
-            autoComplete="new-password"
-            hint={t('auth.register.passwordHint')}
-            value={form.password}
-            error={msg(errors.password)}
-            onChange={update('password')}
-          />
+        <TextField
+          label={t('auth.provider.company')}
+          autoComplete="organization"
+          value={form.companyName}
+          error={msg(errors.companyName)}
+          onChange={update('companyName')}
+        />
 
-          <TextField
-            label={t('auth.provider.documents')}
-            type="file"
-            multiple
-            accept=".pdf,.jpg,.jpeg,.png"
-            hint={t('auth.provider.documentsHint')}
-            error={msg(errors.documents)}
-            onChange={(e) => {
-              setDocuments(Array.from(e.target.files ?? []))
-              setErrors((prev) => ({ ...prev, documents: undefined }))
-            }}
-          />
+        <TextField
+          label={t('auth.register.identifier')}
+          autoComplete="username"
+          value={form.identifier}
+          error={msg(errors.identifier)}
+          onChange={update('identifier')}
+        />
 
-          <Checkbox
-            // TODO: add links to terms and privacy policy
-            label={t('auth.register.terms')}
-            checked={terms}
-            error={msg(errors.terms)}
-            onChange={(e) => {
-              setTerms(e.target.checked)
-              setErrors((prev) => ({ ...prev, terms: undefined }))
-            }}
-          />
+        <TextField
+          label={t('auth.register.password')}
+          type="password"
+          autoComplete="new-password"
+          hint={t('auth.register.passwordHint')}
+          value={form.password}
+          error={msg(errors.password)}
+          onChange={update('password')}
+        />
 
-          <Button type="submit" fullWidth loading={loading}>
-            {t('auth.provider.submit')}
-          </Button>
-        </form>
+        <TextField
+          label={t('auth.provider.documents')}
+          type="file"
+          multiple
+          accept=".pdf,.jpg,.jpeg,.png"
+          hint={t('auth.provider.documentsHint')}
+          error={msg(errors.documents)}
+          onChange={(e) => {
+            setDocuments(Array.from(e.target.files ?? []))
+            setErrors((prev) => ({ ...prev, documents: undefined }))
+          }}
+        />
 
-        <Text variant="small">
-          <Trans i18nKey="auth.register.haveAccount" components={{ link: <Link to="/login" /> }} />
-        </Text>
-      </Card>
-    </main>
+        <Checkbox
+          // TODO: add links to terms and privacy policy
+          label={t('auth.register.terms')}
+          checked={terms}
+          error={msg(errors.terms)}
+          onChange={(e) => {
+            setTerms(e.target.checked)
+            setErrors((prev) => ({ ...prev, terms: undefined }))
+          }}
+        />
+
+        <Button type="submit" fullWidth loading={loading}>
+          {t('auth.provider.submit')}
+        </Button>
+      </Form>
+
+      <Text variant="small">
+        <Trans i18nKey="auth.register.haveAccount" components={{ a: <Link to="/login" /> }} />
+      </Text>
+    </FormPage>
   )
 }
 
