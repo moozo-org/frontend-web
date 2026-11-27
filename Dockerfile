@@ -1,8 +1,8 @@
 FROM node:20-alpine AS base
 WORKDIR /app
-RUN npm install -g serve@14
+RUN npm install -g --ignore-scripts serve@14.2.7
 COPY package*.json ./
-RUN npm install
+RUN npm ci --ignore-scripts
 COPY . .
 
 FROM base AS local
@@ -19,5 +19,6 @@ CMD ["serve", "-s", "dist", "-l", "3000"]
 FROM base AS prod
 ENV NODE_ENV=production
 RUN npm run build
+USER node
 EXPOSE 3000
 CMD ["serve", "-s", "dist", "-l", "3000"]
