@@ -1,8 +1,8 @@
-import { useId, type InputHTMLAttributes, type ReactNode } from 'react'
-import { CheckIcon } from '../icons'
-import styles from './Checkbox.module.css'
+import { useId, type InputHTMLAttributes, type ReactNode } from "react"
+import { CheckIcon } from "../icons"
+import styles from "./Checkbox.module.css"
 
-interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   label: ReactNode
   error?: string
 }
@@ -21,7 +21,7 @@ const Checkbox = ({ label, error, id, ...props }: CheckboxProps) => {
           aria-invalid={!!error}
           {...props}
         />
-        <span className={`${styles.box} ${error ? styles.invalid : ''}`}>
+        <span className={`${styles.box} ${error ? styles.invalid : ""}`}>
           <CheckIcon />
         </span>
         <span>{label}</span>

@@ -1,6 +1,6 @@
 :root {
-  --font-title: 'Sora', sans-serif;
-  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-title: "Sora", sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
 
   --fs-xl: 1.75rem;
   --fs-lg: 1.25rem;

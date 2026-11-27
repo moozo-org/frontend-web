@@ -15,7 +15,7 @@
   cursor: pointer;
   transition: background-color var(--transition);
 
-  &[aria-checked='true'] {
+  &[aria-checked="true"] {
     background-color: var(--primary);
     border-color: var(--primary);
   }
@@ -38,7 +38,7 @@
     transform var(--transition),
     background-color var(--transition);
 
-  [aria-checked='true'] > & {
+  [aria-checked="true"] > & {
     transform: translateX(20px);
     background-color: var(--on-primary);
   }

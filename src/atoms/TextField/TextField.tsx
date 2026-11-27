@@ -1,7 +1,7 @@
-import { useId, useState, type InputHTMLAttributes, type ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
-import { EyeIcon, EyeOffIcon } from '../icons'
-import styles from './TextField.module.css'
+import { useId, useState, type InputHTMLAttributes, type ReactNode } from "react"
+import { useTranslation } from "react-i18next"
+import { EyeIcon, EyeOffIcon } from "../icons"
+import styles from "./TextField.module.css"
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
@@ -15,7 +15,7 @@ const TextField = ({
   error,
   hint,
   iconLeft,
-  type = 'text',
+  type = "text",
   id,
   ...props
 }: TextFieldProps) => {
@@ -25,7 +25,7 @@ const TextField = ({
   const message = error ?? hint
   const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
-  const isPassword = type === 'password'
+  const isPassword = type === "password"
 
   return (
     <div className={styles.field}>
@@ -33,11 +33,11 @@ const TextField = ({
         {label}
       </label>
 
-      <div className={`${styles.control} ${error ? styles.invalid : ''}`}>
+      <div className={`${styles.control} ${error ? styles.invalid : ""}`}>
         {iconLeft && <span className={styles.icon}>{iconLeft}</span>}
         <input
           id={inputId}
-          type={isPassword && visible ? 'text' : type}
+          type={isPassword && visible ? "text" : type}
           className={styles.input}
           aria-invalid={!!error}
           aria-describedby={message ? messageId : undefined}
@@ -48,7 +48,7 @@ const TextField = ({
             type="button"
             className={styles.toggle}
             onClick={() => setVisible(!visible)}
-            aria-label={t(visible ? 'common.hidePassword' : 'common.showPassword')}
+            aria-label={t(visible ? "common.hidePassword" : "common.showPassword")}
           >
             {visible ? <EyeOffIcon /> : <EyeIcon />}
           </button>
